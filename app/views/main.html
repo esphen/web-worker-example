@@ -1,0 +1,9 @@
+<button data-ng-click="useNormal()">Normal iteration</button>
+<button data-ng-click="useWebWorkers()">WebWorkers</button>
+<button data-ng-click="$parent.numbers = []">Clear</button>
+<img src="http://pinpopular.in/images/spinner_192.gif" alt="spinner" />
+<ul>
+  <li data-ng-repeat="number in numbers">
+    {{number}}
+  </li>
+</ul>
