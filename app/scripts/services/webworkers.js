@@ -25,7 +25,11 @@
     };
 
     try {
-        myWorker.postMessage(null);
+        var functionArgs = Array.prototype.slice.call(functionParams);
+        myWorker.postMessage({
+            'functionName': functionName,
+            'functionArgs': functionArgs
+        });
     } catch (e) {
         myWorker.terminate();
         deferred.reject(e);

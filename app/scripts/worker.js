@@ -2,22 +2,34 @@
 
 'use strict';
 
-var getNumbers = function ($scope) {
-    var result = [];
-    for (var i = 100000000 - 1; i >= 0; i--) {
-        result.push(i);
-    };
+var functionsObject = {
+    getNumbers: function() {
+        var result = [];
+        for (var i = 100000000 - 1; i >= 0; i--) {
+            result.push(i);
+        };
 
-    // Filter
-    var filteredResult = [];
-    for (var i = result.length - 1; i >= 0; i--) {
-    	if(result[i] <= 10) {
-			filteredResult.push(result[i]);
-    	}
-    };
-    self.postMessage({result: filteredResult});
+        self.postMessage(result);
+    },
+    filterResults: function (items) {
+        // Filter
+        var filteredResult = [];
+        for (var i = items.length - 1; i >= 0; i--) {
+            if(items[i] <= 10) {
+                filteredResult.push(items[i]);
+            }
+        };
+        self.postMessage(filteredResult);
+    }
 };
 
 self.onmessage = function onmessage(oEvent) {
-  getNumbers();
+    if (oEvent.data instanceof Object &&
+        oEvent.data.hasOwnProperty('functionName') &&
+        oEvent.data.hasOwnProperty('functionArgs')) {
+
+        functionsObject[oEvent.data.functionName].apply(self, oEvent.data.functionArgs);
+
+    }
+
 };
