@@ -8,8 +8,7 @@ var functionsObject = {
         for (var i = 100000000 - 1; i >= 0; i--) {
             result.push(i);
         };
-
-        self.postMessage(result);
+        this.functionsObject.filterResults(result);
     },
     filterResults: function (items) {
         // Filter

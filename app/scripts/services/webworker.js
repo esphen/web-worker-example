@@ -8,7 +8,7 @@
  * Factory in the webWorkersApp.
  */
  angular.module('webWorkersApp')
- .factory('WebWorkers', function ($q) {
+ .factory('WebWorker', function ($q) {
   'use strict';
 
   var _getWorker;
@@ -40,9 +40,7 @@
   };
 
   return {
-
-    f: function f(functionName, functionParams) {
-
+    start: function(functionName, functionParams) {
       if (arguments.length < 2) {
         throw new TypeError('Not enough arguments. ' +
         'The first param is a function name as string. ' +
@@ -58,11 +56,7 @@
         throw new TypeError('Second parameter must be an array. ' +
         'This is an array of data to be processed');
       }
-
       return _getWorker(functionName, functionParams);
-
     }
-
   };
-
 });

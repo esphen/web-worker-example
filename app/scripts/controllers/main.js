@@ -8,7 +8,7 @@
  * Controller of the webWorkersApp
  */
 angular.module('webWorkersApp')
-    .controller('MainCtrl', function ($scope, WebWorkers) {
+    .controller('MainCtrl', function ($scope, WebWorker) {
         $scope.numbers = [];
 
         function getNumbers() {
@@ -33,8 +33,8 @@ angular.module('webWorkersApp')
         };
 
         $scope.useWebWorkers = function () {
-            WebWorkers.f('getNumbers', []).then(function (numbers) {
-                WebWorkers.f('filterResults', [numbers]).then(function (result) {
+            WebWorker.start('getNumbers', []).then(function (numbers) {
+                WebWorker.start('filterResults', [numbers]).then(function (result) {
                     $scope.numbers = result;
                 }, function (error) {
                     throw error;
