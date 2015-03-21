@@ -9,11 +9,11 @@
  */
  angular.module('webWorkersApp')
  .factory('WebWorker', function ($q) {
-  'use strict';
+    'use strict';
 
-  var _getWorker;
+    var _getWorker;
 
-  _getWorker = function _getWorker(functionName, functionParams) {
+    _getWorker = function _getWorker(functionName, functionParams) {
 
     var deferred;
     var myWorker = new Worker('scripts/worker.js');
@@ -36,7 +36,6 @@
     }
 
     return deferred.promise;
-
   };
 
   return {

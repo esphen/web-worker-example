@@ -1,12 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name webWorkersApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the webWorkersApp
- */
 angular.module('webWorkersApp')
     .controller('MainCtrl', function ($scope, WebWorker) {
         $scope.numbers = [];
@@ -30,17 +23,24 @@ angular.module('webWorkersApp')
                 }
             };
             $scope.numbers = filteredResult;
+            $scope.inProgress = false;
         };
 
         $scope.useWebWorkers = function () {
-            WebWorker.start('getNumbers', []).then(function (numbers) {
-                WebWorker.start('filterResults', [numbers]).then(function (result) {
-                    $scope.numbers = result;
+            if (!!window.Worker) { //Support present
+                WebWorker.start('getNumbers', []).then(function (numbers) {
+                    $scope.numbers = numbers;
+                    $scope.inProgress = false;
                 }, function (error) {
                     throw error;
                 });
-            }, function (error) {
-                throw error;
-            });
+            } else {
+                alert('Browser does not support web workers');
+                $scope.useNormal();
+            }
         };
+
+        $scope.toggleProgress = function () {
+            $scope.inProgress = !$scope.inProgress;
+        }
     });

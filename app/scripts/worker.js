@@ -1,7 +1,7 @@
 /*global onmessage:true */
-
 'use strict';
 
+// Holds runnable functions
 var functionsObject = {
     getNumbers: function() {
         var result = [];
@@ -22,13 +22,12 @@ var functionsObject = {
     }
 };
 
+// Gets run on message recieved
 self.onmessage = function onmessage(oEvent) {
     if (oEvent.data instanceof Object &&
         oEvent.data.hasOwnProperty('functionName') &&
         oEvent.data.hasOwnProperty('functionArgs')) {
 
         functionsObject[oEvent.data.functionName].apply(self, oEvent.data.functionArgs);
-
     }
-
 };
